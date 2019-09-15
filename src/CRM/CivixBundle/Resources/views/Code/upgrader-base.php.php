@@ -14,7 +14,7 @@ class <?php echo $_namespace ?>_Upgrader_Base {
   /**
    * @var varies, subclass of this
    */
-  static $instance;
+  public static $instance;
 
   /**
    * @var CRM_Queue_TaskContext
@@ -45,7 +45,7 @@ class <?php echo $_namespace ?>_Upgrader_Base {
   /**
    * Obtain a reference to the active upgrade handler.
    */
-  static public function instance() {
+  public static function instance() {
     if (!self::$instance) {
       // FIXME auto-generate
       self::$instance = new <?php echo $_namespace ?>_Upgrader(
@@ -66,7 +66,7 @@ class <?php echo $_namespace ?>_Upgrader_Base {
    * <?php echo $_namespace ?>_Upgrader_Base::_queueAdapter($ctx, 'methodName', 'arg1', 'arg2');
    * @endcode
    */
-  static public function _queueAdapter() {
+  public static function _queueAdapter() {
     $instance = self::instance();
     $args = func_get_args();
     $instance->ctx = array_shift($args);
@@ -203,7 +203,7 @@ class <?php echo $_namespace ?>_Upgrader_Base {
     $currentRevision = $this->getCurrentRevision();
     foreach ($this->getRevisions() as $revision) {
       if ($revision > $currentRevision) {
-        $title = ts('Upgrade %1 to revision %2', array(
+        $title = E::ts('Upgrade %1 to revision %2', array(
           1 => $this->extensionName,
           2 => $revision,
         ));
